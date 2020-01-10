@@ -2,10 +2,10 @@
 ORG 0x500
 JMP	MAIN2
 
-%include "Print.inc"
-%include "common.inc"
-%include "Fat12.inc"
-%include "A20.inc"
+%include "boot/Print.inc"
+%include "boot/common.inc"
+%include "boot/Fat12.inc"
+%include "boot/A20.inc"
 
 %define NULL_DESC	0
 %define CODE_DESC	0x8

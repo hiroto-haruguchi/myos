@@ -1,0 +1,53 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000000100000                . = 0x100000
+
+.text           0x0000000000100000        0x2
+                0x0000000000100000                _text_start = .
+ *(.text)
+ .text          0x0000000000100000        0x2 kernel/krnl.o
+                0x0000000000100000                _kernel_entry
+ .text          0x0000000000100002        0x0 driver/drivr.o
+                0x0000000000100002                _text_end = .
+
+.rodata         0x0000000000100002        0x0
+                0x0000000000100002                _rodata_start = .
+ *(.rodata)
+                0x0000000000100002                _rodata_end = .
+
+.eh_frame       0x0000000000100008       0x30
+ .eh_frame      0x0000000000100008       0x30 kernel/krnl.o
+
+.data           0x0000000000100038        0x0
+                0x0000000000100038                _data_start = .
+ *(.data)
+ .data          0x0000000000100038        0x0 kernel/krnl.o
+ .data          0x0000000000100038        0x0 driver/drivr.o
+                0x0000000000100038                _data_end = .
+
+.bss            0x0000000000100038        0x0
+                0x0000000000100038                _bss_start = .
+ *(.bss)
+ .bss           0x0000000000100038        0x0 kernel/krnl.o
+ .bss           0x0000000000100038        0x0 driver/drivr.o
+                0x0000000000100038                _bss_end = .
+LOAD kernel/krnl.o
+LOAD driver/drivr.o
+OUTPUT(Kimage binary)
+
+.comment        0x0000000000000000       0x5c
+ .comment       0x0000000000000000       0x2e kernel/krnl.o
+ .comment       0x000000000000002e       0x2e driver/drivr.o
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 kernel/krnl.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 driver/drivr.o

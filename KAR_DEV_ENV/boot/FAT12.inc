@@ -2,7 +2,7 @@
 %define __FAT12_INC_INCLUDED__
 
 [BITS 16]
-%include "BPB.inc"
+%include "boot/BPB.inc"
 
 KernelImageCluster DW 0x0000
 datasector	DW	0x0000
