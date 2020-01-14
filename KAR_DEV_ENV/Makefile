@@ -4,7 +4,7 @@ LOADERASM	=boot_kernel.asm
 KERNEL		=Kimage
 KOBJECTS	=kernel/krnl.o driver/drivr.o
 
-HOME_DIR	="$(CURDIR)"
+HOME_DIR	=$(CURDIR)
 
 CC		=gcc
 CFLAGS		=-fomit-frame-pointer -O2 -I$(HOME_DIR)/include -masm=intel -Wall -c
