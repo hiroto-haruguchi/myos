@@ -10,6 +10,6 @@ all:
 
 .PHONY:clean
 clean:
-	($(CD) $(MEN_DIR);$(MAKE) clean)
-	($(CD) $(SCHED_DIR);$(MAKE) clean)
+#	($(CD) $(MEN_DIR);$(MAKE) clean)
+#	($(CD) $(SCHED_DIR);$(MAKE) clean)
 	$(RM) -f *.o

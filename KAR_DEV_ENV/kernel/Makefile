@@ -1,15 +1,20 @@
 KOBJECTS	=krnl.o
 OBJECTS		=kernel.o
-
-INCLUDES=../include
+SECTIONOBJECTS	=section.o
+INCLUDES	=../include
 
 .PHONY:all
-all:
-	$(CC) $(CFLAGS) -c -o krnl.o kernel.c
-
+all:$(KOBJECTS)
+	$(LD) -r -o $(KOBJECTS) $(OBJECTS) $(SECTIONOBJECTS)
+#.c.o:
+#	$(CC) $(CFLAGS)  -c -o $*.o $<
+section.o:
+	$(CC) $(CFLAFS) -c -o section.o $(INCLUDES)/section.c
+$(KOBJECTS):$(OBJECTS) $(SECTIONOBJECTS)
+	$(LD) -r -o $(KOBJECTS) $(OBJECTS) $(SECTIONOBJECTS)
 
 .PHONY:clean
 clean:
-	($(CD) $(MEN_DIR);$(MAKE)  clean)
-	($(CD) $(SCHED_DIR);$(MAKE) clean)
+#	($(CD) $(MEM_DIR);$(MAKE)  clean)
+#	($(CD) $(SCHED_DIR);$(MAKE) clean)
 	$(RM) -f *.o

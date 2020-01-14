@@ -7,7 +7,7 @@ KOBJECTS	=kernel/krnl.o driver/drivr.o
 HOME_DIR	=$(CURDIR)
 
 CC		=gcc
-CFLAGS		=-fomit-frame-pointer -O2 -I$(HOME_DIR)/include -masm=intel -Wall -c
+CFLAGS		=-fomit-frame-pointer -O2 -I $(HOME_DIR)/include -masm=intel -Wall
 ASFLAGS		=-msyntax=intel -march=i686 --32
 LFLAGS		=-T linkerscript -Map kernel.map -nostdlib -e _kernel_entry --oformat binary
 ASM		=nasm
@@ -46,7 +46,7 @@ $(LOADER):$(BOOT)/$(LOADERASM)
 kernel/krnl.o:
 	($(CD) kernel;$(MAKE))
 
-driver/driver.o:
+driver/drivr.o:
 	($(CD) driver;$(MAKE))
 
 $(KERNEL):$(KOBJECTS)
