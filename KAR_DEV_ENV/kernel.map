@@ -1,10 +1,10 @@
 
-Memory Configuration
+メモリ設定
 
-Name             Origin             Length             Attributes
+名前           原点             長さ             属性
 *default*        0x0000000000000000 0xffffffffffffffff
 
-Linker script and memory map
+リンカスクリプトおよびメモリマップ
 
                 0x0000000000100000                . = 0x100000
 
