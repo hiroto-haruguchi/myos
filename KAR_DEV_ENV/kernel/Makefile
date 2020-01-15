@@ -1,17 +1,23 @@
 KOBJECTS	=krnl.o
 OBJECTS		=kernel.o
-SECTIONOBJECTS	=section.o
+MEMORYOBJECTS	=memory.o
+KSTDLIBOBJECTS	=kstdlib.o
 INCLUDES	=../include
 
 .PHONY:all
-all:$(KOBJECTS)
-	$(LD) -r -o $(KOBJECTS) $(OBJECTS) $(SECTIONOBJECTS)
+all:$(KOBJECTS) $(MEMORYOBJECTS) $(KSTDLIBOBJECTS)
+	$(LD) -r -o $(KOBJECTS) $(OBJECTS) $(MOMORYOBJECTS) $(KSTDLIBOBJECTS)
 #.c.o:
 #	$(CC) $(CFLAGS)  -c -o $*.o $<
 section.o:
-	$(CC) $(CFLAFS) -c -o section.o $(INCLUDES)/section.c
-$(KOBJECTS):$(OBJECTS) $(SECTIONOBJECTS)
-	$(LD) -r -o $(KOBJECTS) $(OBJECTS) $(SECTIONOBJECTS)
+	$(CC) $(CFLAGS) -c -o section.o $(INCLUDES)/section.c
+memory.o:
+	$(CC) $(CFLAGS) -c -o memory.o $(INCLUDES)/memory.c
+kstdlib.o:
+	$(CC) $(CFLAGS) -c -o kstdlib.o $(INCLUDES)/kstdlib.c
+
+$(KOBJECTS):$(OBJECTS) $(MEMORYOBJECTS) $(KSTDLIBOBJECTS)
+	$(LD) -r -o $(KOBJECTS) $(OBJECTS) $(MEOMORYOBJECTS) $(KSTDLIBOBJECTS)
 
 .PHONY:clean
 clean:

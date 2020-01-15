@@ -8,42 +8,43 @@ Linker script and memory map
 
                 0x0000000000100000                . = 0x100000
 
-.text           0x0000000000100000       0x19
+.text           0x0000000000100000       0x4f
                 0x0000000000100000                _text_start = .
  *(.text)
- .text          0x0000000000100000       0x19 kernel/krnl.o
+ .text          0x0000000000100000       0x4f kernel/krnl.o
                 0x0000000000100000                _kernel_entry
- .text          0x0000000000100019        0x0 driver/drivr.o
-                0x0000000000100019                _text_end = .
+                0x0000000000100030                kmemset
+ .text          0x000000000010004f        0x0 driver/drivr.o
+                0x000000000010004f                _text_end = .
 
-.rodata         0x0000000000100019        0x0
-                0x0000000000100019                _rodata_start = .
+.rodata         0x000000000010004f        0x0
+                0x000000000010004f                _rodata_start = .
  *(.rodata)
-                0x0000000000100019                _rodata_end = .
+                0x000000000010004f                _rodata_end = .
 
-.eh_frame       0x0000000000100020       0x30
- .eh_frame      0x0000000000100020       0x30 kernel/krnl.o
+.eh_frame       0x0000000000100050       0x60
+ .eh_frame      0x0000000000100050       0x60 kernel/krnl.o
 
-.data           0x0000000000100050        0x0
-                0x0000000000100050                _data_start = .
+.data           0x00000000001000b0        0x0
+                0x00000000001000b0                _data_start = .
  *(.data)
- .data          0x0000000000100050        0x0 kernel/krnl.o
- .data          0x0000000000100050        0x0 driver/drivr.o
-                0x0000000000100050                _data_end = .
+ .data          0x00000000001000b0        0x0 kernel/krnl.o
+ .data          0x00000000001000b0        0x0 driver/drivr.o
+                0x00000000001000b0                _data_end = .
 
-.bss            0x0000000000100050        0x0
-                0x0000000000100050                _bss_start = .
+.bss            0x00000000001000b0        0x0
+                0x00000000001000b0                _bss_start = .
  *(.bss)
- .bss           0x0000000000100050        0x0 kernel/krnl.o
- .bss           0x0000000000100050        0x0 driver/drivr.o
-                0x0000000000100050                _bss_end = .
+ .bss           0x00000000001000b0        0x0 kernel/krnl.o
+ .bss           0x00000000001000b0        0x0 driver/drivr.o
+                0x00000000001000b0                _bss_end = .
 LOAD kernel/krnl.o
 LOAD driver/drivr.o
 OUTPUT(Kimage binary)
 
-.comment        0x0000000000000000       0x5c
- .comment       0x0000000000000000       0x2e kernel/krnl.o
- .comment       0x000000000000002e       0x2e driver/drivr.o
+.comment        0x0000000000000000       0x8a
+ .comment       0x0000000000000000       0x5c kernel/krnl.o
+ .comment       0x000000000000005c       0x2e driver/drivr.o
 
 .note.GNU-stack
                 0x0000000000000000        0x0
