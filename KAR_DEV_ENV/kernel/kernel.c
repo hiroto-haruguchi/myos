@@ -2,6 +2,8 @@
 #include "memory.h"
 
 int _kernel_entry(void){
-initBSS(bss_start,bss_end-bss_start);
+
+initGLOBALSCOPE();
+initBSS(_BSS_START ,_BSS_END - _BSS_START );
 for(;;){}
 }

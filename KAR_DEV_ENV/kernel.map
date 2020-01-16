@@ -1,3 +1,17 @@
+Archive member included to satisfy reference by file (symbol)
+
+kernel/kernel.a(kernelsub.o)  (_kernel_entry)
+kernel/kernel.a(memory.o)     kernel/kernel.a(kernelsub.o) (initBSS)
+kernel/kernel.a(kstdlib.o)    kernel/kernel.a(memory.o) (kmemset)
+kernel/kernel.a(section.o)    kernel/kernel.a(kernelsub.o) (initGLOBALSCOPE)
+
+割り当てている共通シンボル
+共通シンボル        サイズ            ファイル
+
+_TEXT_START         0x4               kernel/kernel.a(section.o)
+_TEXT_END           0x4               kernel/kernel.a(section.o)
+_BSS_END            0x4               kernel/kernel.a(section.o)
+_BSS_START          0x4               kernel/kernel.a(section.o)
 
 メモリ設定
 
@@ -8,47 +22,77 @@
 
                 0x0000000000100000                . = 0x100000
 
-.text           0x0000000000100000       0x4f
+.text           0x0000000000100000       0x81
                 0x0000000000100000                _text_start = .
  *(.text)
- .text          0x0000000000100000       0x4f kernel/krnl.o
+ .text          0x0000000000100000       0x20 kernel/kernel.a(kernelsub.o)
                 0x0000000000100000                _kernel_entry
+ .text          0x0000000000100020        0xb kernel/kernel.a(memory.o)
+                0x0000000000100020                initBSS
+ *fill*         0x000000000010002b        0x5 
+ .text          0x0000000000100030       0x1f kernel/kernel.a(kstdlib.o)
                 0x0000000000100030                kmemset
- .text          0x000000000010004f        0x0 driver/drivr.o
-                0x000000000010004f                _text_end = .
+ *fill*         0x000000000010004f        0x1 
+ .text          0x0000000000100050       0x31 kernel/kernel.a(section.o)
+                0x0000000000100050                initGLOBALSCOPE
+ .text          0x0000000000100081        0x0 driver/drivr.o
+                0x0000000000100081                _text_end = .
 
-.rodata         0x000000000010004f        0x0
-                0x000000000010004f                _rodata_start = .
+.rodata         0x0000000000100081        0x0
+                0x0000000000100081                _rodata_start = .
  *(.rodata)
-                0x000000000010004f                _rodata_end = .
+                0x0000000000100081                _rodata_end = .
 
-.eh_frame       0x0000000000100050       0x60
- .eh_frame      0x0000000000100050       0x60 kernel/krnl.o
+.eh_frame       0x0000000000100088       0xc0
+ .eh_frame      0x0000000000100088       0x30 kernel/kernel.a(kernelsub.o)
+ .eh_frame      0x00000000001000b8       0x30 kernel/kernel.a(memory.o)
+ .eh_frame      0x00000000001000e8       0x30 kernel/kernel.a(kstdlib.o)
+ .eh_frame      0x0000000000100118       0x30 kernel/kernel.a(section.o)
 
-.data           0x00000000001000b0        0x0
-                0x00000000001000b0                _data_start = .
+.data           0x0000000000100148        0x0
+                0x0000000000100148                _data_start = .
  *(.data)
- .data          0x00000000001000b0        0x0 kernel/krnl.o
- .data          0x00000000001000b0        0x0 driver/drivr.o
-                0x00000000001000b0                _data_end = .
+ .data          0x0000000000100148        0x0 kernel/kernel.a(kernelsub.o)
+ .data          0x0000000000100148        0x0 kernel/kernel.a(memory.o)
+ .data          0x0000000000100148        0x0 kernel/kernel.a(kstdlib.o)
+ .data          0x0000000000100148        0x0 kernel/kernel.a(section.o)
+ .data          0x0000000000100148        0x0 driver/drivr.o
+                0x0000000000100148                _data_end = .
 
-.bss            0x00000000001000b0        0x0
-                0x00000000001000b0                _bss_start = .
+.bss            0x0000000000100148       0x10
+                0x0000000000100148                _bss_start = .
  *(.bss)
- .bss           0x00000000001000b0        0x0 kernel/krnl.o
- .bss           0x00000000001000b0        0x0 driver/drivr.o
-                0x00000000001000b0                _bss_end = .
-LOAD kernel/krnl.o
+ .bss           0x0000000000100148        0x0 kernel/kernel.a(kernelsub.o)
+ .bss           0x0000000000100148        0x0 kernel/kernel.a(memory.o)
+ .bss           0x0000000000100148        0x0 kernel/kernel.a(kstdlib.o)
+ .bss           0x0000000000100148        0x0 kernel/kernel.a(section.o)
+ .bss           0x0000000000100148        0x0 driver/drivr.o
+                0x0000000000100148                _bss_end = .
+ COMMON         0x0000000000100148       0x10 kernel/kernel.a(section.o)
+                0x0000000000100148                _TEXT_START
+                0x000000000010014c                _TEXT_END
+                0x0000000000100150                _BSS_END
+                0x0000000000100154                _BSS_START
+LOAD kernel/kernel.a
 LOAD driver/drivr.o
 OUTPUT(Kimage binary)
 
-.comment        0x0000000000000000       0x8a
- .comment       0x0000000000000000       0x5c kernel/krnl.o
- .comment       0x000000000000005c       0x2e driver/drivr.o
+.comment        0x0000000000000000       0xe6
+ .comment       0x0000000000000000       0x2e kernel/kernel.a(kernelsub.o)
+ .comment       0x000000000000002e       0x2e kernel/kernel.a(memory.o)
+ .comment       0x000000000000005c       0x2e kernel/kernel.a(kstdlib.o)
+ .comment       0x000000000000008a       0x2e kernel/kernel.a(section.o)
+ .comment       0x00000000000000b8       0x2e driver/drivr.o
 
 .note.GNU-stack
                 0x0000000000000000        0x0
  .note.GNU-stack
-                0x0000000000000000        0x0 kernel/krnl.o
+                0x0000000000000000        0x0 kernel/kernel.a(kernelsub.o)
+ .note.GNU-stack
+                0x0000000000000000        0x0 kernel/kernel.a(memory.o)
+ .note.GNU-stack
+                0x0000000000000000        0x0 kernel/kernel.a(kstdlib.o)
+ .note.GNU-stack
+                0x0000000000000000        0x0 kernel/kernel.a(section.o)
  .note.GNU-stack
                 0x0000000000000000        0x0 driver/drivr.o

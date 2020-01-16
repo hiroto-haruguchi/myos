@@ -43,7 +43,7 @@ $(BOOT).img:$(BOOT)/$(BOOT).asm
 
 $(LOADER):$(BOOT)/$(LOADERASM)
 	$(ASM) -I$(BOOT) -o $(LOADER) $(BOOT)/$(LOADERAS)
-kernel/krnl.o:
+kernel/kernel.a:
 	($(CD) kernel;$(MAKE))
 
 driver/drivr.o:

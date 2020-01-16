@@ -1,26 +1,26 @@
-KOBJECTS	=kernel.a
-OBJECTS		=kernel.o
-TMPOBJECTS	=kernelsub.o
+KOBJ		=kernel.a
+OBJ		=kernel.o
+TMPOBJ		=kernelsub.o
 SECTIONOBJ	=section.o
-MEMORYOBJECTS	=memory.o
-KSTDLIBOBJECTS	=kstdlib.o
+MEMORYOBJ	=memory.o
+KSTDLIBOBJ	=kstdlib.o
 INCLUDES	=../include
 
 .PHONY:all
-all:$(MEMORYOBJECTS) $(KSTDLIBOBJECTS) $(SECTIONOBJ) $(TMPOBJECTS)
-	$(LD) -r -o $(KOBJECTS) $(OBJECTS)
+all:$(MEMORYOBJ) $(KSTDLIBOBJ) $(SECTIONOBJ) $(TMPOBJ)
+	ar r $(KOBJ) $(MEMORYOBJ) $(KSTDLIBOBJ) $(SECTIONOBJ) $(TMPOBJ)
 #.c.o:
 #	$(CC) $(CFLAGS)  -c -o $*.o $<
 #$(OBJECTS):$(MEMORYOBJECTS) $(KSTDLIBOBJECTS) $(SECTIONOBJ) $(TMPOBJECTS)
 #	$(CC) $(CFLAGS) -o $(OBJECTS) $(OBJECTS) $(MOMORYOBJECTS) $(KSTDLIBOBJECTS)
-$(SECTRIONOBJ):
-	$(CC) $(CFLAGS) -c -o section.o $(INCLUDES)/section.c
-$(MEMORYOBJECTS):
-	$(CC) $(CFLAGS) -c -o memory.o $(INCLUDES)/memory.c
-$(KSTDLIBOBJECTS):
-	$(CC) $(CFLAGS) -c -o kstdlib.o $(INCLUDES)/kstdlib.c
-$(TMPOBJECTS):
-	$(CC) $(CFLAGS) -c -o $(TMPOBJECTS) kernel.c
+$(SECTIONOBJ):
+	$(CC) $(CFLAGS) -c -o $(SECTIONOBJ) $(INCLUDES)/section.c
+$(MEMORYOBJ):
+	$(CC) $(CFLAGS) -c -o $(MEMORYOBJ) $(INCLUDES)/memory.c
+$(KSTDLIBOBJ):
+	$(CC) $(CFLAGS) -c -o $(KSTDLIBOBJ) $(INCLUDES)/kstdlib.c
+$(TMPOBJ):
+	$(CC) $(CFLAGS) -c -o $(TMPOBJ) kernel.c
 #$(KOBJECTS):$(MEMORYOBJECTS) $(KSTDLIBOBJECTS) $(SECTIONOBJ) $(TMPOBJECTS)
 #	$(LD) -r -o $(KOBJECTS) $(MEMORYOBJECTS) $(KSTDLIBOBJECTS) $(SECTIONOBJ) $(TMPOBJECTS)
 
@@ -28,4 +28,4 @@ $(TMPOBJECTS):
 clean:
 #	($(CD) $(MEM_DIR);$(MAKE)  clean)
 #	($(CD) $(SCHED_DIR);$(MAKE) clean)
-	$(RM) -f *.o
+	$(RM) -f *.o *.a
