@@ -2,7 +2,7 @@ BOOT		=boot
 LOADER		=stkar.img
 LOADERASM	=boot_kernel.asm
 KERNEL		=Kimage
-KOBJECTS	=kernel/krnl.o driver/drivr.o
+KOBJECTS	=kernel/kernel.a driver/drivr.o
 
 HOME_DIR	=$(CURDIR)
 
