@@ -5,74 +5,76 @@ kernel/kernel.a(memory.o)     kernel/kernel.a(kernelsub.o) (initBSS)
 kernel/kernel.a(kstdlib.o)    kernel/kernel.a(memory.o) (kmemset)
 kernel/kernel.a(section.o)    kernel/kernel.a(kernelsub.o) (initGLOBALSCOPE)
 
-割り当てている共通シンボル
-共通シンボル        サイズ            ファイル
+Allocating common symbols
+Common symbol       size              file
 
 _TEXT_START         0x4               kernel/kernel.a(section.o)
 _TEXT_END           0x4               kernel/kernel.a(section.o)
 _BSS_END            0x4               kernel/kernel.a(section.o)
 _BSS_START          0x4               kernel/kernel.a(section.o)
 
-メモリ設定
+Memory Configuration
 
-名前           原点             長さ             属性
+Name             Origin             Length             Attributes
 *default*        0x0000000000000000 0xffffffffffffffff
 
-リンカスクリプトおよびメモリマップ
+Linker script and memory map
 
                 0x0000000000100000                . = 0x100000
 
-.text           0x0000000000100000       0x81
+.text           0x0000000000100000       0xa1
                 0x0000000000100000                _text_start = .
  *(.text)
- .text          0x0000000000100000       0x20 kernel/kernel.a(kernelsub.o)
+ .text          0x0000000000100000       0x3e kernel/kernel.a(kernelsub.o)
                 0x0000000000100000                _kernel_entry
- .text          0x0000000000100020        0xb kernel/kernel.a(memory.o)
-                0x0000000000100020                initBSS
- *fill*         0x000000000010002b        0x5 
- .text          0x0000000000100030       0x1f kernel/kernel.a(kstdlib.o)
-                0x0000000000100030                kmemset
- *fill*         0x000000000010004f        0x1 
- .text          0x0000000000100050       0x31 kernel/kernel.a(section.o)
-                0x0000000000100050                initGLOBALSCOPE
- .text          0x0000000000100081        0x0 driver/drivr.o
-                0x0000000000100081                _text_end = .
+                0x0000000000100030                displaySample
+ *fill*         0x000000000010003e        0x2 
+ .text          0x0000000000100040        0xb kernel/kernel.a(memory.o)
+                0x0000000000100040                initBSS
+ *fill*         0x000000000010004b        0x5 
+ .text          0x0000000000100050       0x1f kernel/kernel.a(kstdlib.o)
+                0x0000000000100050                kmemset
+ *fill*         0x000000000010006f        0x1 
+ .text          0x0000000000100070       0x31 kernel/kernel.a(section.o)
+                0x0000000000100070                initGLOBALSCOPE
+ .text          0x00000000001000a1        0x0 driver/drivr.o
+                0x00000000001000a1                _text_end = .
 
-.rodata         0x0000000000100081        0x0
-                0x0000000000100081                _rodata_start = .
+.rodata         0x00000000001000a1        0x0
+                0x00000000001000a1                _rodata_start = .
  *(.rodata)
-                0x0000000000100081                _rodata_end = .
+                0x00000000001000a1                _rodata_end = .
 
-.eh_frame       0x0000000000100088       0xc0
- .eh_frame      0x0000000000100088       0x30 kernel/kernel.a(kernelsub.o)
- .eh_frame      0x00000000001000b8       0x30 kernel/kernel.a(memory.o)
- .eh_frame      0x00000000001000e8       0x30 kernel/kernel.a(kstdlib.o)
- .eh_frame      0x0000000000100118       0x30 kernel/kernel.a(section.o)
+.eh_frame       0x00000000001000a8       0xd0
+ .eh_frame      0x00000000001000a8       0x40 kernel/kernel.a(kernelsub.o)
+ .eh_frame      0x00000000001000e8       0x30 kernel/kernel.a(memory.o)
+ .eh_frame      0x0000000000100118       0x30 kernel/kernel.a(kstdlib.o)
+ .eh_frame      0x0000000000100148       0x30 kernel/kernel.a(section.o)
 
-.data           0x0000000000100148        0x0
-                0x0000000000100148                _data_start = .
+.data           0x0000000000100178        0x0
+                0x0000000000100178                _data_start = .
  *(.data)
- .data          0x0000000000100148        0x0 kernel/kernel.a(kernelsub.o)
- .data          0x0000000000100148        0x0 kernel/kernel.a(memory.o)
- .data          0x0000000000100148        0x0 kernel/kernel.a(kstdlib.o)
- .data          0x0000000000100148        0x0 kernel/kernel.a(section.o)
- .data          0x0000000000100148        0x0 driver/drivr.o
-                0x0000000000100148                _data_end = .
+ .data          0x0000000000100178        0x0 kernel/kernel.a(kernelsub.o)
+ .data          0x0000000000100178        0x0 kernel/kernel.a(memory.o)
+ .data          0x0000000000100178        0x0 kernel/kernel.a(kstdlib.o)
+ .data          0x0000000000100178        0x0 kernel/kernel.a(section.o)
+ .data          0x0000000000100178        0x0 driver/drivr.o
+                0x0000000000100178                _data_end = .
 
-.bss            0x0000000000100148       0x10
-                0x0000000000100148                _bss_start = .
+.bss            0x0000000000100178       0x10
+                0x0000000000100178                _bss_start = .
  *(.bss)
- .bss           0x0000000000100148        0x0 kernel/kernel.a(kernelsub.o)
- .bss           0x0000000000100148        0x0 kernel/kernel.a(memory.o)
- .bss           0x0000000000100148        0x0 kernel/kernel.a(kstdlib.o)
- .bss           0x0000000000100148        0x0 kernel/kernel.a(section.o)
- .bss           0x0000000000100148        0x0 driver/drivr.o
-                0x0000000000100148                _bss_end = .
- COMMON         0x0000000000100148       0x10 kernel/kernel.a(section.o)
-                0x0000000000100148                _TEXT_START
-                0x000000000010014c                _TEXT_END
-                0x0000000000100150                _BSS_END
-                0x0000000000100154                _BSS_START
+ .bss           0x0000000000100178        0x0 kernel/kernel.a(kernelsub.o)
+ .bss           0x0000000000100178        0x0 kernel/kernel.a(memory.o)
+ .bss           0x0000000000100178        0x0 kernel/kernel.a(kstdlib.o)
+ .bss           0x0000000000100178        0x0 kernel/kernel.a(section.o)
+ .bss           0x0000000000100178        0x0 driver/drivr.o
+                0x0000000000100178                _bss_end = .
+ COMMON         0x0000000000100178       0x10 kernel/kernel.a(section.o)
+                0x0000000000100178                _TEXT_START
+                0x000000000010017c                _TEXT_END
+                0x0000000000100180                _BSS_END
+                0x0000000000100184                _BSS_START
 LOAD kernel/kernel.a
 LOAD driver/drivr.o
 OUTPUT(Kimage binary)
