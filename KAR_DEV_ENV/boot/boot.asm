@@ -26,7 +26,7 @@ BS_VolID	DD	0x20190825
 BS_VolLab	DB	"MYOS    "
 BS_FileSysType	DB	"FAT12   "
 
-ImageName	DB	"KAR     IMG",0x00,0x00
+ImageName	DB	"STKAR   IMG",0x00,0x00
 msgIMAGEOK	DB	"Loaging File system",0x00,0x00
 msgIMAGEFAILED	DB	"Failed process",0x00,0x00
 
@@ -227,7 +227,7 @@ ResetFloppyDrive:
 	JC FAILURE
 	RET
 FAILURE:
-	MOV	SI,ES_IMAGE_ADDR
+	MOV	SI,msgIMAGEFAILED	
 	CALL	DisplayMessage
 	HLT
 ClusterLBA:

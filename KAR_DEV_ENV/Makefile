@@ -34,7 +34,7 @@ all:$(BOOT).img $(LOADER) $(KERNEL) $(KOBJECTS)
 	($(CD) driver;$(MAKE))
 #Make boot loader
 	$(ASM) -o $(BOOT).img $(BOOT)/$(BOOT).asm
-	$(ASM) -I$(BOOT) -o $(LOADER) $(BOOT)/$(LOADERASM)
+	$(ASM) -I $(BOOT) -o $(LOADER) $(BOOT)/$(LOADERASM)
 #Make kernel image
 	$(LD) $(LFLAGS) -o $(KERNEL) $(KOBJECTS)
 
