@@ -14,6 +14,6 @@ int _kernel_entry(void){
 
 void displaySample(void){
  unsigned short *vram_TextMode;
- vram_TextMode = ( unsigned short * ) VRAM_TEXTMODE;
+ vram_TextMode = ( unsigned short* ) VRAM_TEXTMODE;
  *vram_TextMode = ( 0x07 << 8 ) | 'A';
 }

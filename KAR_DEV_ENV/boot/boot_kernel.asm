@@ -13,7 +13,7 @@ JMP	MAIN2
 
 LoadingMsg	DB 0x0D, 0x0A,"Searching for Karnel...", 0x00, 0x00
 FAI		DB 0x0D, 0x0A,"Not found",0x00,0x00
-SUC		DB 0x0D, 0x0A,"Found Karnel",0x00,0x00
+SUC		DB 0x0D, 0x0A,"Found Kernel",0x00,0x00
 msgpmode	DB 0x0D, 0x0A,"Changing to protect mode",0x00,0x00
 
 MAIN2:
@@ -33,15 +33,15 @@ MAIN2:
 	CALL	DisplayMessage ;Print.inc
 	CALL	Find_File      ;FAT12.inc
 	CMP	AX,0
-	JZ	LoadKarnel
+	JZ	LoadKernel
 	MOV	SI,FAI
 	CALL	DisplayMessage
 	CLI
 	HLT
-LoadKarnel:
+LoadKernel:
+	CALL	Load_File
 	MOV	SI,SUC
 	CALL	DisplayMessage
-	CALL	Load_File
 EnableA20:
 	CALL	Enable_A20
 Enter_pmode:
@@ -107,7 +107,7 @@ CopyKernelImage:
 	MOV	ECX,EAX
 REP	MOVSD
 	JMP	EXECUTE
-;	
+	
 Failure2:
 	HLT
 	JMP	Failure2
