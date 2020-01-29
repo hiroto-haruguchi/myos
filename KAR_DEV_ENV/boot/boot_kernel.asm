@@ -8,7 +8,7 @@ JMP	MAIN2
 %include "boot/A20.inc"
 
 %define NULL_DESC	0
-%define CODE_DESC	0x8
+%define CODE_DESC	0x08
 %define	DATA_DESC	0x10
 
 LoadingMsg	DB 0x0D, 0x0A,"Searching for Karnel...", 0x00, 0x00
@@ -48,6 +48,8 @@ Enter_pmode:
 	CLI
 	MOV	EAX,CR0
 	OR	EAX,0x00000001
+	MOV	SI,msgpmode
+	CALL	DisplayMessage
 	MOV	CR0,EAX
 	JMP	CODE_DESC:Pmode_start
 
@@ -95,6 +97,7 @@ Pmode_start:
        	MOV     GS,AX
        	MOV     DS,AX
        	MOV     ESP,90000h
+	CALL	VRAMMessage
 CopyKernelImage:
 	XOR	EAX,EAX
 	MOVZX	EAX,WORD[ImageSizeES]
@@ -118,3 +121,17 @@ EXECUTE:
 	CALL	EBP
 	ADD	ESP,4
 	JMP	Failure2
+
+VRAMMessage:
+	PUSH	EAX
+	PUSH	EBX
+
+	MOV	EAX,0x0700000000
+	MOV	EBX,0x41
+	OR	EBX,EAX
+	MOV	[0x00008B001],EBX
+
+	POP	EBX
+	POP	EAX
+
+	RET
